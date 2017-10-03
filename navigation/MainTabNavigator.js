@@ -60,10 +60,3 @@ export default TabNavigator(
     swipeEnabled: false,
   }
 );
-
-
-
-
-
-vierailija
-langaton234
