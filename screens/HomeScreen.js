@@ -56,6 +56,10 @@ export default class HomeScreen extends React.Component {
           title="Get exercise"
         />
 
+        <Button
+        onPress={() => navigate('SingleExercise', { name: 'Bechpress' })}
+        title="Exercises"
+        />
           <Text>1234</Text>
           <InputTest value={'Placeholder'}/>
       </ScrollView>

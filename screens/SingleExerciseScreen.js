@@ -11,16 +11,16 @@ import {
 import Layout from '../constants/Layout';
 
 
-export default class ExerciseScreen extends React.Component {
+export default class SingleExerciseScreen extends React.Component {
   static navigationOptions = {
-   title: "Exercise"
+   title: "SIngle Exercise"
   };
 
   render() {
     const { params } = this.props.navigation.state;
     return (
       <ScrollView>
-            <Text>Hello World {params.user}</Text>
+            <Text>Hello World {params.name}</Text>
         </ScrollView>
     );
   }

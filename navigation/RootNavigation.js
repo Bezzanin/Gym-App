@@ -3,13 +3,15 @@ import React from 'react';
 import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
+import HomeScreen from '../screens/HomeScreen';
+import SingleExerciseScreen from '../screens/SingleExerciseScreen';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 const RootStackNavigator = StackNavigator(
   {
-    Main: {
-      screen: MainTabNavigator,
-    },
+    Main: { screen: MainTabNavigator, },
+    Home: { screen: HomeScreen },
+    SingleExercise: { screen: SingleExerciseScreen },
   },
   {
     navigationOptions: () => ({

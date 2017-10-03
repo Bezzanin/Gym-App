@@ -8,6 +8,7 @@ import Colors from '../constants/Colors';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 export default TabNavigator(
   {
@@ -20,6 +21,9 @@ export default TabNavigator(
     Settings: {
       screen: SettingsScreen,
     },
+    Profile : {
+      screen: ProfileScreen
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -28,19 +32,16 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName = Platform.OS === 'ios'
-              ? `ios-information-circle${focused ? '' : '-outline'}`
-              : 'md-information-circle';
+            iconName = 'md-information-circle';
             break;
           case 'Links':
-            iconName = Platform.OS === 'ios'
-              ? `ios-link${focused ? '' : '-outline'}`
-              : 'md-link';
+            iconName = 'md-link';
             break;
           case 'Settings':
-            iconName = Platform.OS === 'ios'
-              ? `ios-options${focused ? '' : '-outline'}`
-              : 'md-options';
+            iconName = `ios-options${focused ? '' : '-outline'}`;
+            break;
+          case 'Profile':
+            iconName = 'ios-american-football';
         }
         return (
           <Ionicons
