@@ -8,7 +8,7 @@ import Colors from '../constants/Colors';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ExerciseScreen from '../screens/ExerciseScreen';
 
 export default TabNavigator(
   {
@@ -21,9 +21,10 @@ export default TabNavigator(
     Settings: {
       screen: SettingsScreen,
     },
-    Profile : {
-      screen: ProfileScreen
-    }
+    Exercise: {
+      screen: ExerciseScreen,
+    },
+
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -32,16 +33,16 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName = 'md-information-circle';
+            iconName = `ios-information-circle`
             break;
           case 'Links':
-            iconName = 'md-link';
+            iconName = `ios-link${focused ? '' : '-outline'}`
             break;
           case 'Settings':
-            iconName = `ios-options${focused ? '' : '-outline'}`;
+            iconName = `ios-options${focused ? '' : '-outline'}`
             break;
-          case 'Profile':
-            iconName = 'ios-american-football';
+          case 'Exercise':
+            iconName = `ios-stats${focused ? '' : '-outline'}`
         }
         return (
           <Ionicons
