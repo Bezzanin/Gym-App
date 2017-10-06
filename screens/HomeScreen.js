@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Button,
+  FlatList,
 } from 'react-native';
 import Layout from '../constants/Layout';
 import Database from '../api/database';
@@ -24,10 +25,36 @@ export default class HomeScreen extends React.Component {
   handlePress() {
     console.log('1234567');
   }
-
-  getExercises() {
-    Database.getExercises();
+  constructor(props){
+    super(props);
+    this.state = {
+      exercises: []
+    }
   }
+
+  componentDidMount() {
+    Database.getExercises( (exercises) => {
+      console.log(exercises);
+      this.setState({
+        exercises: exercises
+      })
+    });
+  }
+
+  handlePress(name, description) {
+    this.props.navigation.navigate('SingleExercise', {name: name, description: description})
+  }
+
+    filterExercises(name) {
+      // Don't manipulate state directly, get a copy and then modify
+      let newExercises = Object.values(this.state.exercises).slice().filter((item) => {
+        return item.type = name;
+      })
+      this.setState({
+        exercises: newExercises
+      })
+    }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -50,16 +77,35 @@ export default class HomeScreen extends React.Component {
                 description={'Lorem ipsum dolor sit amet in vina veritas'}
                 imageSource={require('../assets/images/exercises.jpg')}/>
           </ScrollView>
-
-          <Button
-          onPress={() => this.getExercises()}
-          title="Get exercise"
-        />
+      <Button
+        title="Log state"
+        onPress={() => console.log(this.state.exercises)}/>
 
         <Button
         onPress={() => navigate('SingleExercise', { name: 'Bechpress' })}
         title="Exercises"
         />
+
+        <Button
+        title="Only basic"
+        onPress={ () => {this.filterExercises('basic')}}/>
+        <Button
+        title="Only others"
+        onPress={ () => {this.filterExercises('others')}}/>
+        <Button
+        title="Only isolation"
+        onPress={ () => {this.filterExercises('isolation')}}/>
+
+        <FlatList
+          data={Object.values(this.state.exercises)}
+          renderItem={({item}) =>
+          <ImageExercise
+            title={item.name}
+            id={item.name}
+            handlePress={this.handlePress.bind(this)}
+            description={item.type}
+            imageSource={require('../assets/images/exercises.jpg')}/>}
+          />
           <Text>1234</Text>
           <InputTest value={'Placeholder'}/>
       </ScrollView>

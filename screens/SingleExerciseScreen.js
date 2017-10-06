@@ -17,7 +17,8 @@ export default class SingleExerciseScreen extends React.Component {
       const { params } = this.props.navigation.state
     return (
       <ScrollView>
-            <Text>Sigle Exercise Here {params.name}</Text>
+            <Text style={{fontSize: 24, fontWeight: '500'}}>{params.name} exercise</Text>
+            <Text style={{fontSize: 24, fontWeight: '500'}}>{params.description} exercise</Text>
         </ScrollView>
     );
   }
