@@ -15,7 +15,7 @@ class Firebase {
             authDomain: "APIKEY",
             databaseURL: "APIKEY",
             storageBucket: "APIKEY",
-            messagingSenderId: "APIKEY"
+            messagingSenderId: "APIKEY8"
         });
     }
 

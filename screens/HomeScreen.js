@@ -31,6 +31,8 @@ export default class HomeScreen extends React.Component {
     this.state = {
       email: '',
       password: '',
+      user: 'nouser',
+      initialMessage: '',
     }
   }
 
@@ -41,14 +43,32 @@ export default class HomeScreen extends React.Component {
         exercises: exercises
       })
     });
+    Database.authState((user) => {
+      let initialMessage = user ? 'Welcome, user' : 'Please, log in';
+
+      this.setState({
+        user: user,
+        initialMessage: initialMessage,
+      })
+    });
   }
   register() {
     Database.register(this.state.email, this.state.password);
   }
+
+  login() {
+    Database.login(this.state.email, this.state.password);
+  }
+
+  logout() {
+    Database.logout();
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
+        <Text style={{fontSize: 25}}>{this.state.initialMessage}</Text>
         <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
         onChangeText={(email) => this.setState({email})}
@@ -61,8 +81,17 @@ export default class HomeScreen extends React.Component {
         value={this.state.password}
       />
       <Button
+        title="log user state"
+        onPress={() => {console.log(this.state.user)}}/>
+      <Button
         title="Register"
         onPress={() => {this.register()}}/>
+        <Button
+        title="Log in"
+        onPress={() => {this.login()}}/>
+        <Button
+        title="Log out"
+        onPress={() => {this.logout()}}/>
       </ScrollView>
     );
   }
