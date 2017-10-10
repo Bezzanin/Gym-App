@@ -14,6 +14,27 @@ class Database {
             console.log(errorMessage)
         });
     }
+    static addUserData(name, uid) {
+        let ref = firebase.database().ref().child('users').child(uid).set({
+            name: name,
+            gender,
+            age, weight, height
+        });
+    }
+    /* If you are working outside the first screem, you can just take uid from firebase without intervals */
+    static addUserStatistics(statistics) {
+        let uid = firebase.auth().currentUser.uid;
+        let ref = firebase.database().ref().child('users').child(uid).child('statistics').update({
+            statistics: statistics
+        })
+    }
+
+    static sendFeedback(feedback) {
+        let ref = firebase.database().ref().child('feedbacks');
+        ref.push({
+            feedback: feedback
+        })
+    }
 
     static login(email, password) {
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -25,9 +46,7 @@ class Database {
     }
 
     static logout() {
-        firebase.auth().signOut().catch((error) => {
-            console.log(error.message)
-        });
+        firebase.auth().signOut();
     }
 
     static authState(callback){
@@ -35,6 +54,17 @@ class Database {
             callback(user);
         })
     }
+
+    static getUserId(callback) {
+        let uid = firebase.auth().currentUser.uid;
+        callback(uid);
+        return uid;
+    }
+
+    /**
+     * 
+     * Not Authentication
+     */
     static getExercises(callback) {
         let ref = firebase.database().ref().child('exercises');
         ref.on('value', (snap) => {

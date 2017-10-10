@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Layout from '../constants/Layout';
 import Database from '../api/database';
+import * as firebase from 'firebase';
 
 // Importing Menu Item components that we have created
 import MenuItem from '../components/MenuItem';
@@ -33,6 +34,8 @@ export default class HomeScreen extends React.Component {
       password: '',
       user: 'nouser',
       initialMessage: '',
+      feedback: '',
+      name: '',
     }
   }
 
@@ -43,6 +46,7 @@ export default class HomeScreen extends React.Component {
         exercises: exercises
       })
     });
+    /* Check if user is logged in. If he is, display welcome message */
     Database.authState((user) => {
       let initialMessage = user ? 'Welcome, user' : 'Please, log in';
 
@@ -51,13 +55,29 @@ export default class HomeScreen extends React.Component {
         initialMessage: initialMessage,
       })
     });
+    
+    /* We have to set interval here, because Firebase currentUser property is not initialized yet */
+    let timeout = setInterval(() => {
+      if (firebase.auth().currentUser !== null) {
+        clearInterval(timeout);
+        let uid = firebase.auth().currentUser.uid;
+        this.setState({uid})
+      }
+
+    }, 500)
   }
+
   register() {
     Database.register(this.state.email, this.state.password);
+    Database.addUserData(this.state.name, this.state.uid);
   }
 
   login() {
     Database.login(this.state.email, this.state.password);
+  }
+
+  sendFeedback(){
+    Database.sendFeedback(this.state.feedback);
   }
 
   logout() {
@@ -80,9 +100,12 @@ export default class HomeScreen extends React.Component {
         onChangeText={(password) => this.setState({password})}
         value={this.state.password}
       />
-      <Button
-        title="log user state"
-        onPress={() => {console.log(this.state.user)}}/>
+      <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+        onChangeText={(name) => this.setState({name})}
+        value={this.state.name}
+      />
+      
       <Button
         title="Register"
         onPress={() => {this.register()}}/>
@@ -92,6 +115,18 @@ export default class HomeScreen extends React.Component {
         <Button
         title="Log out"
         onPress={() => {this.logout()}}/>
+        <Button
+          title="Log user id"
+          onPress={() => {console.log(this.state.uid)}}/>
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(feedback) => this.setState({feedback})}
+            value={this.state.feedback}
+          />
+          <Button
+            title="Send Feedback"
+            onPress={() => {this.sendFeedback()}}/>
+
       </ScrollView>
     );
   }

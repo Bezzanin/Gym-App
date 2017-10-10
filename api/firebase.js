@@ -6,16 +6,13 @@ class Firebase {
     /**
      * Initialises Firebase
      */
-
-
-
     static initialise() {
         firebase.initializeApp({
-            apiKey: "APIKEY",
-            authDomain: "APIKEY",
-            databaseURL: "APIKEY",
-            storageBucket: "APIKEY",
-            messagingSenderId: "APIKEY8"
+            apiKey: "INSERT YOUR KEY",
+            authDomain: "INSERT YOUR KEY",
+            databaseURL: "INSERT YOUR KEY",
+            storageBucket: "INSERT YOUR KEY",
+            messagingSenderId: "INSERT YOUR KEY"
         });
     }
 
