@@ -14,11 +14,10 @@ class Database {
             console.log(errorMessage)
         });
     }
-    static addUserData(name, uid) {
+    static addUserData(name) {
+        let uid = firebase.auth().currentUser.uid;
         firebase.database().ref().child('users').child(uid).set({
-            name: name,
-            gender,
-            age, weight, height
+            name: name
         });
     }
     /* If you are working outside the first screem, you can just take uid from firebase without intervals */
