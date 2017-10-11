@@ -16,7 +16,7 @@ export default class App extends React.Component {
     Firebase.initialise();
   }
 
-  componentWillMount() {
+  componentDidMount() {
     Database.authState((user) => {
       let initialView = user ? 'Home' : 'Login';
 

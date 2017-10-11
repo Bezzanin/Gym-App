@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Modal, Text, TouchableHighlight, View, Button, TextInput } from 'react-native';
+import Database from '../api/database';
 
 class LogInForm extends Component {
 
@@ -11,6 +12,10 @@ class LogInForm extends Component {
     this.setState({modalVisible: visible});
   }
 
+  login() {
+    Database.login(this.state.email, this.state.password);
+  }
+
   render() {
     return (
       <View style={{marginTop: 22}}>
@@ -20,10 +25,10 @@ class LogInForm extends Component {
           visible={this.state.modalVisible}
           onRequestClose={() => {alert("Modal has been closed.")}}
           >
-         <View style={{marginTop: 22}}>
+         <View style={{marginTop: 22, justifyContent: 'center', alignItems: 'center', flex: 1}}>
           <View>
             
-            <Text>Hello World!</Text>
+            <Text style={{fontSize: 25, textAlign: 'center'}}>Please Enter Your Email and Password</Text>
 
             <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1}}
@@ -39,8 +44,13 @@ class LogInForm extends Component {
         placeholder={'Password'}
       />
             
+           
+           
             <Button
-            title="Hide Modal"
+            title="Log in"
+            onPress={() => {this.login()}}/>
+            <Button
+            title="Cancel"
             onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
 
 
@@ -50,7 +60,7 @@ class LogInForm extends Component {
         </Modal>
 
         <Button
-        title="Log in Modal"
+        title="Log In"
         onPress={() => {
           this.setModalVisible(true)
         }}/>

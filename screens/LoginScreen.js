@@ -70,9 +70,7 @@ export default class LoginScreen extends React.Component {
     Database.addUserData(this.state.name, this.state.uid);
   }
 
-  login() {
-    Database.login(this.state.email, this.state.password);
-  }
+
 
   render() {
     return (
@@ -101,9 +99,6 @@ export default class LoginScreen extends React.Component {
       <Button
         title="Register"
         onPress={() => {this.register()}}/>
-        <Button
-        title="Log in"
-        onPress={() => {this.login()}}/>
         <LogInForm />
 
       </ScrollView>
