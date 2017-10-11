@@ -19,6 +19,7 @@ import * as firebase from 'firebase';
 import MenuItem from '../components/MenuItem';
 import ImageExercise from '../components/ImageExercise';
 import InputTest from '../components/InputTest';
+import LogInForm from '../components/LogInForm'
 
 export default class LoginScreen extends React.Component {
 
@@ -73,14 +74,6 @@ export default class LoginScreen extends React.Component {
     Database.login(this.state.email, this.state.password);
   }
 
-  sendFeedback(){
-    Database.sendFeedback(this.state.feedback);
-  }
-
-  logout() {
-    Database.logout();
-  }
-
   render() {
     return (
       <ScrollView style={{marginTop: 50}}>
@@ -111,20 +104,7 @@ export default class LoginScreen extends React.Component {
         <Button
         title="Log in"
         onPress={() => {this.login()}}/>
-        <Button
-        title="Log out"
-        onPress={() => {this.logout()}}/>
-        <Button
-          title="Log user id"
-          onPress={() => {console.log(this.state.uid)}}/>
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(feedback) => this.setState({feedback})}
-            value={this.state.feedback}
-          />
-          <Button
-            title="Send Feedback"
-            onPress={() => {this.sendFeedback()}}/>
+        <LogInForm />
 
       </ScrollView>
     );
