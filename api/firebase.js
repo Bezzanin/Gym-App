@@ -8,11 +8,12 @@ class Firebase {
      */
     static initialise() {
         firebase.initializeApp({
-            apiKey: "INSERT YOUR KEY",
-            authDomain: "INSERT YOUR KEY",
-            databaseURL: "INSERT YOUR KEY",
-            storageBucket: "INSERT YOUR KEY",
-            messagingSenderId: "INSERT YOUR KEY"
+            apiKey: "AIzaSyBnLBI6wcLpBhjrjCqdXc7ZgNOAe4wZhcA",
+            authDomain: "lapintest1.firebaseapp.com",
+            databaseURL: "https://lapintest1.firebaseio.com",
+            projectId: "lapintest1",
+            storageBucket: "lapintest1.appspot.com",
+            messagingSenderId: "744056805967"
         });
     }
 

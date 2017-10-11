@@ -4,6 +4,8 @@ import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 import Firebase from "./api/firebase";
+import Database from "./api/database";
+import LoginScreen from "./screens/LoginScreen"
 
 export default class App extends React.Component {
   state = {
@@ -13,14 +15,22 @@ export default class App extends React.Component {
     super(props);
     Firebase.initialise();
   }
+
+  componentWillMount() {
+    Database.authState((user) => {
+      let initialView = user ? 'Home' : 'Login';
+
+      this.setState({
+        user: user,
+        initialView: initialView,
+      })
+      console.log(this.state.initialView)
+    });
+  }
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
+    if (this.state.initialView === 'Login') {
       return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
+        <LoginScreen />
       );
     } else {
       return (
@@ -31,7 +41,6 @@ export default class App extends React.Component {
           <RootNavigation />
         </View>
       );
-    }
   }
 
   _loadResourcesAsync = async () => {
@@ -59,6 +68,7 @@ export default class App extends React.Component {
   _handleFinishLoading = () => {
     this.setState({ isLoadingComplete: true });
   };
+}
 }
 
 const styles = StyleSheet.create({

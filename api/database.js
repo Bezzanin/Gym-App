@@ -15,7 +15,7 @@ class Database {
         });
     }
     static addUserData(name, uid) {
-        let ref = firebase.database().ref().child('users').child(uid).set({
+        firebase.database().ref().child('users').child(uid).set({
             name: name,
             gender,
             age, weight, height
