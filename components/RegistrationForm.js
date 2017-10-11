@@ -34,7 +34,7 @@ class RegistrationForm extends Component {
   async register() {
         try {
             await firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password);
-            await Database.addUserData(this.state.name); 
+            await Database.addUserData(this.state.name, this.state.weight, this.state.height); 
             console.log("account Created")
             } catch (error) {
             console.log(error)
@@ -72,6 +72,18 @@ class RegistrationForm extends Component {
             onChangeText={(name) => this.setState({name})}
             value={this.state.name}
             placeholder={'Name'}
+          />
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(weight) => this.setState({weight})}
+            value={this.state.weight}
+            placeholder={'Weight'}
+          />
+          <TextInput
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(height) => this.setState({height})}
+            value={this.state.height}
+            placeholder={'Height'}
           />
           
           <Button

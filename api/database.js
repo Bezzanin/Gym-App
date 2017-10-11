@@ -14,10 +14,12 @@ class Database {
             console.log(errorMessage)
         });
     }
-    static addUserData(name) {
+    static addUserData(name, weight, height) {
         let uid = firebase.auth().currentUser.uid;
-        firebase.database().ref().child('users').child(uid).set({
-            name: name
+        firebase.database().ref().child('users').child(uid).child('details').set({
+            name: name,
+            weight: weight,
+            height: height
         });
     }
     /* If you are working outside the first screem, you can just take uid from firebase without intervals */
@@ -67,10 +69,16 @@ class Database {
     static getExercises(callback) {
         let ref = firebase.database().ref().child('exercises');
         ref.on('value', (snap) => {
-
             callback(snap.val())
         })
-        
+    }
+
+    static getUserData(callback) {
+        let uid = firebase.auth().currentUser.uid;
+        let path = firebase.database().ref().child('users').child(uid).child('details');
+        path.once('value', (snap) => {
+            callback(snap.val())
+        })
     }
 }
 

@@ -36,6 +36,7 @@ export default class HomeScreen extends React.Component {
       initialMessage: '',
       feedback: '',
       name: '',
+      details: {name: null, weight: null, height: null}
     }
   }
 
@@ -52,8 +53,13 @@ export default class HomeScreen extends React.Component {
         clearInterval(timeout);
         let uid = firebase.auth().currentUser.uid;
         this.setState({uid})
-      }
 
+        Database.getUserData( (details) => {
+          this.setState({
+            details: details
+          })
+        });
+      }
     }, 500)
   }
 
@@ -69,15 +75,16 @@ export default class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <ScrollView>
-        <Text style={{fontSize: 25}}>Welcome to the App</Text>
-        
+        <Text style={{fontSize: 25}}>Welcome to the App {this.state.details.name}</Text>
+        <Text style={{fontSize: 25}}>Your Weight {this.state.details.weight}</Text>
+        <Text style={{fontSize: 25}}>Your Height {this.state.details.height}</Text>
       
         <Button
         title="Log out"
         onPress={() => {this.logout()}}/>
         <Button
-          title="Log user id"
-          onPress={() => {console.log(this.state.uid)}}/>
+          title="Log user Details"
+          onPress={() => {console.log(this.state.details)}}/>
           <TextInput
             style={{height: 40, borderColor: 'gray', borderWidth: 1}}
             onChangeText={(feedback) => this.setState({feedback})}
