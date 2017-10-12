@@ -6,7 +6,7 @@ import { TabNavigator, TabBarBottom } from 'react-navigation';
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import ProgramsScreen from '../screens/ProgramsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ExerciseScreen from '../screens/ExerciseScreen';
 
@@ -15,8 +15,8 @@ export default TabNavigator(
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Programs: {
+      screen: ProgramsScreen,
     },
     Settings: {
       screen: SettingsScreen,
@@ -35,7 +35,7 @@ export default TabNavigator(
           case 'Home':
             iconName = `ios-information-circle`
             break;
-          case 'Links':
+          case 'Programs':
             iconName = `ios-link${focused ? '' : '-outline'}`
             break;
           case 'Settings':

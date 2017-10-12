@@ -73,11 +73,30 @@ class Database {
         })
     }
 
+    static getPrograms(callback) {
+        let ref = firebase.database().ref().child('programs');
+        ref.on('value', (snap) => {
+            callback(snap.val())
+        })
+    }
+
     static getUserData(uid, callback) {
         // let uid = firebase.auth().currentUser.uid;
         let path = firebase.database().ref().child('users').child(uid).child('details');
         path.once('value', (snap) => {
             callback(snap.val())
+        })
+    }
+
+    static filterExercises(exercisesID) {
+        let programExercise = []
+        programExercise.push(exercisesID)
+        console.log(programExercise[0])
+        let ref = firebase.database().ref().child('exercises');
+        ref.on('value', (snap) => {
+            Object.keys(snap.val()).filter((exercise) => {
+                return exercise = exercisesID
+            })
         })
     }
 }
