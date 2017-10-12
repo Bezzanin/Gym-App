@@ -91,19 +91,27 @@ class Database {
 
     static filterExercises(exercisesID, callback) {
         let ref = firebase.database().ref().child('exercises');
+        // First We Create an empty all Exercises Variable
         let allExercises = ''
+        // Now we fill our variable with the exercises from database
         ref.on('value', (snap) => {
             allExercises = Object.values(snap.val())
         })
+        // Here We create an array from our exercises list coming from programs
         let programExercises = exercisesID.split(",")
         
+        // Here We use 'map' function to apply filter for each element of programExercises Array
         let filteredList = programExercises.map((pExercise) => {
+            // The map function returns only one element of the array and applyes filter to it
             let result = allExercises.filter((exercise) => {
+                // Here the pExercise is the one element of programExercises array compared to allExercises id's
                 return exercise.id === pExercise
             })
-
+            //After Each filter we save the value to the 'result' variable
             return result
         })
+        // Here we return the filtered list of exercises back to application
+        // _.flatten Function is taken from Lodash library
         callback(_.flatten(filteredList))
     }
 }
