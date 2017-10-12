@@ -88,16 +88,22 @@ class Database {
         })
     }
 
-    static filterExercises(exercisesID) {
-        let programExercise = []
-        programExercise.push(exercisesID)
-        console.log(programExercise[0])
+    static filterExercises(exercisesID, callback) {
         let ref = firebase.database().ref().child('exercises');
+        let allExercises = ''
         ref.on('value', (snap) => {
-            Object.keys(snap.val()).filter((exercise) => {
-                return exercise = exercisesID
-            })
+            allExercises = Object.values(snap.val())
         })
+        let programExercises = exercisesID.split(",")
+        
+        let filteredList = programExercises.map((pExercise) => {
+            let result = allExercises.filter((exercise) => {
+                return exercise.id === pExercise
+            })
+
+            return result
+        })
+        callback(filteredList)
     }
 }
 
