@@ -49,13 +49,14 @@ export default class HomeScreen extends React.Component {
     });
     
     Database.authState((user) => {
+      if (user !== null) {
       this.setState({uid: user.uid}, () =>{
         Database.getUserData(this.state.uid, (details) => {
           this.setState({
             details: details
           })
         });
-      })
+      })}
     })
 
   }
