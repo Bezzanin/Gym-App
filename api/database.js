@@ -1,4 +1,5 @@
 import * as firebase from "firebase";
+var _ = require('lodash');
 
 class Database {
     /**
@@ -103,7 +104,7 @@ class Database {
 
             return result
         })
-        callback(filteredList)
+        callback(_.flatten(filteredList))
     }
 }
 

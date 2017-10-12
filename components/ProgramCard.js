@@ -1,18 +1,39 @@
 import React, { Component }  from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import Database from '../api/database';
+import ImageExercise from '../components/ImageExercise';
 
 class ProgramCard extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+          exercises: []
+        }
+      }
+
 componentDidMount() {
-    Database.filterExercises(this.props.exercises)
+    Database.filterExercises(this.props.exercises, (filterExercises) => {
+        this.setState({ exercises: filterExercises})
+    })
 }
 
     render() {
         return (
             <TouchableOpacity onPress={() => {this.props.handlePress(this.props.title, this.props.description)}}>
             <View style={styles.container}>
-                <Text style={styles.title}>{this.props.title}</Text> 
+                <Text style={styles.title}>{this.props.title}</Text>
+                <View style={{flexDirection: 'column'}}>
+                <FlatList
+                    data={this.state.exercises}
+                    renderItem={({item}) =>
+                    <ImageExercise
+                        title={item.name}
+                        id={item.name}
+                        description={item.description}
+                        imageSource={item.url}/>}
+          /> 
+            </View>
             </View>
             </TouchableOpacity>
         )
@@ -22,10 +43,9 @@ componentDidMount() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: "column",
         borderColor: '#CDCDCD', 
         borderWidth: 0.5,
-        alignItems: 'center',
         paddingHorizontal: 16,
         marginHorizontal: 8,
         marginVertical: 4,
