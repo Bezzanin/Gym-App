@@ -73,8 +73,8 @@ class Database {
         })
     }
 
-    static getUserData(callback) {
-        let uid = firebase.auth().currentUser.uid;
+    static getUserData(uid, callback) {
+        // let uid = firebase.auth().currentUser.uid;
         let path = firebase.database().ref().child('users').child(uid).child('details');
         path.once('value', (snap) => {
             callback(snap.val())

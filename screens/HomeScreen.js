@@ -36,6 +36,7 @@ export default class HomeScreen extends React.Component {
       initialMessage: '',
       feedback: '',
       name: '',
+      uid: '',
       details: {name: null, weight: null, height: null}
     }
   }
@@ -47,20 +48,16 @@ export default class HomeScreen extends React.Component {
       })
     });
     
-    /* We have to set interval here, because Firebase currentUser property is not initialized yet */
-    let timeout = setInterval(() => {
-      if (firebase.auth().currentUser !== null) {
-        clearInterval(timeout);
-        let uid = firebase.auth().currentUser.uid;
-        this.setState({uid})
-
-        Database.getUserData( (details) => {
+    Database.authState((user) => {
+      this.setState({uid: user.uid}, () =>{
+        Database.getUserData(this.state.uid, (details) => {
           this.setState({
             details: details
           })
         });
-      }
-    }, 500)
+      })
+    })
+
   }
 
   sendFeedback(){

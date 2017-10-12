@@ -7,7 +7,7 @@ class MenuItem extends Component {
             <TouchableOpacity onPress={() => {this.props.handlePress(this.props.title, this.props.description)}}>
             <View style={styles.container}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={this.props.imageSource}/>
+                    <Image style={styles.image} source={{uri : this.props.imageSource}}/>
                 </View>
                 <View style={styles.textCont}>
                     <Text style={styles.title}>{this.props.title}</Text>
