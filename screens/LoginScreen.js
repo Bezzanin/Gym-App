@@ -3,7 +3,8 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 
 import LogInForm from '../components/LogInForm';
@@ -13,17 +14,33 @@ export default class LoginScreen extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{marginTop: 50}}>
+      <View style={styles.container}>
         <Text style={{fontSize: 25, textAlign: 'center'}}>Welcome to Body Center</Text>
-
+        <Image
+        style={styles.backgroundImage}
+          source={require('../assets/images/bg.jpg')}
+        />
+        
         <LogInForm />
         <RegistrationForm />
 
-      </ScrollView>
+
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+    flexDirection: 'column',
+},
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch',
+    position: 'absolute'
+  }
 });

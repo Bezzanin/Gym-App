@@ -59,11 +59,13 @@ class LogInForm extends Component {
          </View>
         </Modal>
 
-        <Button
-        title="Log In"
+        <TouchableHighlight
         onPress={() => {
           this.setModalVisible(true)
-        }}/>
+        }}
+        style={{width: 50, height: 50, borderRadius: 100, backgroundColor: '#2e9cdb', justifyContent: 'center', }}>
+        <Text style={{alignSelf: 'center', color: 'white'}}>Log In</Text>
+        </TouchableHighlight>
 
       </View>
     );

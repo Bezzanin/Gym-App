@@ -10,6 +10,7 @@ import ProgramsScreen from '../screens/ProgramsScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import ExerciseScreen from '../screens/ExerciseScreen';
 
+
 export default TabNavigator(
   {
     Home: {

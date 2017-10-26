@@ -27,6 +27,7 @@ export default class ExerciseScreen extends React.Component {
     this.state = {
       exercises: []
     }
+    this.handlePress = this.handlePress.bind(this)
   }
 
   componentDidMount() {
@@ -37,19 +38,20 @@ export default class ExerciseScreen extends React.Component {
     });
   }
 
-  handlePress(name, description) {
-    this.props.navigation.navigate('SingleExercise', {name: name, description: description})
+  handlePress(name, description, type) {
+    console.log(type)
+    this.props.navigation.navigate('SingleExercise', {name: name, description: description, type: type})
   }
 
-    filterExercises(name) {
-      // Don't manipulate state directly, get a copy and then modify
-      let newExercises = Object.values(this.state.exercises).slice().filter((item) => {
-        return item.type = name;
-      })
-      this.setState({
-        exercises: newExercises
-      })
-    }
+    // filterExercises(name) {
+    //   // Don't manipulate state directly, get a copy and then modify
+    //   let newExercises = Object.values(this.state.exercises).slice().filter((item) => {
+    //     return item.type = name;
+    //   })
+    //   this.setState({
+    //     exercises: newExercises
+    //   })
+    // }
 
   render() {
     const { navigate } = this.props.navigation;
@@ -71,7 +73,8 @@ export default class ExerciseScreen extends React.Component {
           <ImageExercise
             title={item.name}
             id={item.name}
-            handlePress={this.handlePress.bind(this)}
+            type={item.type}
+            handlePress={() => {this.handlePress(item.name, item.description, item.type)}}
             description={item.description}
             imageSource={item.url}/>}
           />
